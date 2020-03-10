@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @RestController
 public class Controller {
     private ArrayList <String> names = new ArrayList<>();
-    private int [][] field = new int[3][3];
+    public static int [][] field = new int[3][3];
 
     @RequestMapping(value = "/sendName", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
@@ -32,11 +32,11 @@ public class Controller {
     public String sendCell(@RequestBody CellDto dto) {
         if (dto.name.equals(names.get(0))) {
             field[dto.x][dto.y] = 0; // нолик
-            return "Cell set";
+            return "Cell 0 set";
         }
         else if (dto.name.equals(names.get(1))) {
             field[dto.x][dto.y] = 1; // крестик
-            return "Cell set";
+            return "Cell X set";
         }
         else return "error";
     }
