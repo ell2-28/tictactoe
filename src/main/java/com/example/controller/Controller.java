@@ -5,14 +5,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
+// Доработки:
+// 1. юнит тест
+// 2. интеграционный(апи) тест с примером партии
+// 3. доработать чтобы можно было сыграть ещё раз без перезапуска сервера
+// *4. доработать чтобы параллельно могли идти несколько партий
 @RestController
 public class Controller {
     private ArrayList <String> names = new ArrayList<>();
-    public static int [][] field = new int[3][3];
+    public static int [][] field = new int[3][3]; // игровое поле не должно быть статическим
 
     @RequestMapping(value = "/sendName", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.OK) // это лишнее
+    @ResponseBody // это лишнее
     public NameDto sendName(@RequestBody NameDto dto) {
         names.add(dto.name);
         return dto;
@@ -27,8 +32,8 @@ public class Controller {
     }
 
     @RequestMapping(value = "/sendCell", method = RequestMethod.POST, consumes = {"application/json ; charset=utf-8"})
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
+    @ResponseStatus(HttpStatus.OK) // это лишнее
+    @ResponseBody // это лишнее
     public String sendCell(@RequestBody CellDto dto) {
         if (dto.name.equals(names.get(0))) {
             field[dto.x][dto.y] = 0; // нолик
